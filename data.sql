@@ -1,4 +1,3 @@
-
 CREATE TYPE role_type AS ENUM ('coach', 'sportif');
 CREATE TYPE statut_type AS ENUM ('disponible', 'reservee');
 
