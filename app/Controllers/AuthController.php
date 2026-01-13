@@ -52,7 +52,7 @@ class AuthController extends Controller
             }
 
             $db->commit();
-            $this->redirect('/auth/login');
+            $this->redirect('/login');
 
         } catch (\Exception $e) {
             $db->rollBack();
