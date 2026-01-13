@@ -1,4 +1,4 @@
-CREATE TYPE role_type AS ENUM ('coach', 'sportif');
+/* CREATE TYPE role_type AS ENUM ('coach', 'sportif');
 CREATE TYPE statut_type AS ENUM ('disponible', 'reservee');
 
 CREATE TABLE utilisateur (
@@ -46,3 +46,5 @@ CREATE TABLE reservation (
     FOREIGN KEY (id_seance) REFERENCES seance(id_seance) ON DELETE CASCADE,
     FOREIGN KEY (id_sportif) REFERENCES sportif(id_sportif) ON DELETE CASCADE
 );
+ */
+ SELECT * FROM utilisateur

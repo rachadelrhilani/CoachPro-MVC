@@ -8,9 +8,7 @@ use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
-var_dump($_SERVER['DB_HOST']);
-var_dump($_SERVER['DB_NAME']);
+define('BASE_URL', $_ENV['APP_URL']); 
 require_once __DIR__ . '/../routes/web.php';
-echo $_ENV['APP_NAME']; // CoachPro
 $router = new Router();
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

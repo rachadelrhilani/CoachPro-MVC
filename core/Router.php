@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Router
@@ -19,15 +20,14 @@ class Router
     {
         $uri = parse_url($uri, PHP_URL_PATH);
 
-// 🔥 Supprimer le chemin du projet
-$basePath = '/CoachPro(MVC)/public';
-if (str_starts_with($uri, $basePath)) {
-    $uri = substr($uri, strlen($basePath));
-}
+        $basePath = '/CoachPro(MVC)/public';
+        if (str_starts_with($uri, $basePath)) {
+            $uri = substr($uri, strlen($basePath));
+        }
 
-if ($uri === '') {
-    $uri = '/';
-}
+        if ($uri === '') {
+            $uri = '/';
+        }
 
 
         if (!isset(self::$routes[$method][$uri])) {
