@@ -1,0 +1,15 @@
+{
+  "name": "coachpro/mvc",
+  "description": "Plateforme Coach & Sportif en MVC",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Core\\": "core/"
+    }
+  },
+  "require": {
+    "vlucas/phpdotenv": "^5.6",
+    "twig/twig": "^3.22"
+  }
+}
