@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Coach;
 use App\Models\Sportif;
 use App\Models\Database;
+use Core\Security;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,7 @@ class AuthController extends Controller
 
     public function register()
     {
+        Security::checkCsrfToken();
         $db = Database::getInstance();
         $db->beginTransaction();
 
@@ -65,6 +67,7 @@ class AuthController extends Controller
 
     public function login()
     {
+        Security::checkCsrfToken();
         $user = (new User())->findByEmail($_POST['email']);
 
         if (!$user || !password_verify($_POST['password'], $user['mot_de_passe'])) {
