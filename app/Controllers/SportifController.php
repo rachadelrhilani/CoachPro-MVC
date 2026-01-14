@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Controllers;
 
+use App\Models\Coach;
 use Core\Controller;
 use Core\Security;
 
@@ -14,7 +16,12 @@ class SportifController extends Controller
 
     public function coaches()
     {
-        $this->render('sportif/coaches');
+        $coachModel = new Coach();
+        $coaches = $coachModel->all();
+
+        $this->render('sportif/coaches', [
+            'coaches' => $coaches
+        ]);
     }
 
     public function seances()
