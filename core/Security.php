@@ -20,4 +20,21 @@ class Security
             exit;
         }
     }
+    public static function generateCsrfToken(): string
+    {
+        if (!Session::get('csrf_token')) {
+            Session::set('csrf_token', bin2hex(random_bytes(32)));
+        }
+        return Session::get('csrf_token');
+    }
+
+    public static function checkCsrfToken()
+    {
+        if (
+            !isset($_POST['_csrf']) ||
+            $_POST['_csrf'] !== Session::get('csrf_token')
+        ) {
+            die('CSRF token invalide');
+        }
+    }
 }

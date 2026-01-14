@@ -22,6 +22,7 @@ abstract class Controller
 
     protected function render(string $view, array $data = [])
     {
+        $data['csrf_token'] = Security::generateCsrfToken();
         echo $this->twig->render($view . '.twig', $data);
     }
 
