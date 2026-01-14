@@ -12,7 +12,6 @@ class Seance
         $this->db = Database::getInstance();
     }
 
-    // Toutes les séances disponibles
     public function all()
     {
         $stmt = $this->db->query("
@@ -24,4 +23,5 @@ class Seance
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 }
