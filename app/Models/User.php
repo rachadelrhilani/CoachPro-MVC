@@ -21,7 +21,7 @@ class User
         return $stmt->fetch();
     }
 
-    public function create(string $email, string $password, string $role): int
+    public function createUser(string $email, string $password, string $role): int
     {
         $stmt = $this->db->prepare(
             "INSERT INTO utilisateur (email, mot_de_passe, role)
@@ -38,3 +38,4 @@ class User
         return $stmt->fetchColumn();
     }
 }
+

@@ -1,18 +1,9 @@
 <?php
 namespace App\Models;
 
-use PDO;
-
-class Sportif
+class Sportif extends User
 {
-    private PDO $db;
-
-    public function __construct()
-    {
-        $this->db = Database::getInstance();
-    }
-
-    public function create(array $data)
+    public function createSportif(array $data)
     {
         $stmt = $this->db->prepare(
             "INSERT INTO sportif (nom, prenom, id_user)
@@ -22,3 +13,4 @@ class Sportif
         $stmt->execute($data);
     }
 }
+

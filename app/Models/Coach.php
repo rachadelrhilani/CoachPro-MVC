@@ -1,18 +1,9 @@
 <?php
 namespace App\Models;
 
-use PDO;
-
-class Coach
+class Coach extends User
 {
-    private PDO $db;
-
-    public function __construct()
-    {
-        $this->db = Database::getInstance();
-    }
-
-    public function create(array $data)
+    public function createCoach(array $data)
     {
         $stmt = $this->db->prepare(
             "INSERT INTO coach (nom, prenom, discipline, annees_experience, description, id_user)

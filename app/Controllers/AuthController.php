@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use Core\Controller;
@@ -26,16 +27,16 @@ class AuthController extends Controller
         $db->beginTransaction();
 
         try {
-            $userModel = new User();
+            $user = new User();
 
-            $userId = $userModel->create(
+            $userId = $user->createUser(
                 $_POST['email'],
                 $_POST['password'],
                 $_POST['role']
             );
 
             if ($_POST['role'] === 'coach') {
-                (new Coach())->create([
+                (new Coach())->createCoach([
                     'nom' => $_POST['nom'],
                     'prenom' => $_POST['prenom'],
                     'discipline' => $_POST['discipline'],
@@ -44,7 +45,7 @@ class AuthController extends Controller
                     'id_user' => $userId
                 ]);
             } else {
-                (new Sportif())->create([
+                (new Sportif())->createSportif([
                     'nom' => $_POST['nom'],
                     'prenom' => $_POST['prenom'],
                     'id_user' => $userId
@@ -53,14 +54,14 @@ class AuthController extends Controller
 
             $db->commit();
             $this->redirect('/login');
-
         } catch (\Exception $e) {
             $db->rollBack();
             $this->render('auth/register', [
-                'error' => 'Email est deja utiliser'
+                'error' => 'Email déjà utilisé'
             ]);
         }
     }
+
 
     public function login()
     {
@@ -72,7 +73,12 @@ class AuthController extends Controller
             ]);
         }
 
-        Session::set('user', $user);
+        Session::set('user', [
+            'id' => $user['id_user'],
+            'email' => $user['email'],
+            'role' => $user['role']
+        ]);
+
 
         $this->redirect(
             $user['role'] === 'coach'
