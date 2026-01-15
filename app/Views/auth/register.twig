@@ -1,78 +1,233 @@
-
-
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Créer un compte
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-            Rejoignez la communauté CoachPro
-        </p>
+<div class="min-h-screen flex">
+    <!-- Left Side - Image Section -->
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://plus.unsplash.com/premium_photo-1726743771000-2d4eb988013f?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/80 via-purple-900/70 to-indigo-900/80"></div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-10 flex flex-col justify-center items-center w-full p-12 text-white">
+            <!-- Logo -->
+            <div class="mb-8">
+                <div class="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center shadow-2xl">
+                    <span class="text-4xl font-bold">C</span>
+                </div>
+            </div>
+            
+            <!-- Image placeholder - Sports/Coaching themed -->
+            <div class="mb-8 relative">
+                <div class="w-96 h-96 bg-white/10 backdrop-blur-md rounded-3xl flex items-center justify-center shadow-2xl border border-white/20">
+                    <svg class="w-48 h-48 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Text content -->
+            <div class="text-center max-w-md">
+                <h1 class="text-4xl font-bold mb-4">Rejoignez CoachPro</h1>
+                <p class="text-lg text-white/90 leading-relaxed">
+                    Créez votre compte et commencez votre parcours sportif avec les meilleurs coachs.
+                </p>
+            </div>
+            
+            <!-- Stats or features -->
+            <div class="mt-12 grid grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-3xl font-bold mb-1">500+</div>
+                    <div class="text-sm text-white/80">Coachs experts</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold mb-1">10k+</div>
+                    <div class="text-sm text-white/80">Séances</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold mb-1">98%</div>
+                    <div class="text-sm text-white/80">Satisfaction</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            
+    <!-- Right Side - Form Section -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-gray-50 to-white overflow-y-auto">
+        <div class="w-full max-w-md py-8">
+            <!-- Logo mobile -->
+            <div class="lg:hidden flex justify-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <span class="text-white text-2xl font-bold">C</span>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Créer un compte</h2>
+                <p class="text-gray-600">Rejoignez la communauté CoachPro</p>
+            </div>
+
+            <!-- Error message -->
             {% if error %}
-                <div class="mb-4 bg-red-50 border-l-4 border-red-400 p-4">
-                    <p class="text-sm text-red-700">{{ error }}</p>
+                <div class="mb-6 bg-red-50 border-l-4 border-red-500 rounded-r-lg p-4 flex items-start shadow-sm">
+                    <svg class="h-5 w-5 text-red-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <p class="text-sm text-red-700 font-medium">{{ error }}</p>
                 </div>
             {% endif %}
 
-            <form method="POST" action="{{ base_url }}/register" class="space-y-6">
-             <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+            <!-- Form -->
+            <form method="POST" action="{{ base_url }}/register" class="space-y-5">
+                <input type="hidden" name="_csrf" value="{{ csrf_token }}">
                 
+                <!-- Name & Firstname -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Nom</label>
-                        <input name="nom" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nom</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <input name="nom" type="text" required 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200">
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Prénom</label>
-                        <input name="prenom" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Prénom</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <input name="prenom" type="text" required 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200">
+                        </div>
                     </div>
                 </div>
 
+                <!-- Email field -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="exemple@mail.com">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                    <input type="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Je suis un...</label>
-                    <select name="role" id="role" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
-                        <option value="sportif">Sportif</option>
-                        <option value="coach">Coach</option>
-                    </select>
-                </div>
-
-                <!-- Champs spécifiques au Coach avec transition douce -->
-                <div id="coach-fields" class="hidden space-y-4 pt-4 border-t border-gray-100">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Discipline</label>
-                        <input name="discipline" type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="ex: Fitness, Yoga...">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Années d'expérience</label>
-                        <input name="experience" type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Parlez-nous de votre parcours..."></textarea>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                            </svg>
+                        </div>
+                        <input type="email" name="email" required 
+                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                            placeholder="exemple@mail.com">
                     </div>
                 </div>
 
+                <!-- Password field -->
                 <div>
-                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                        S'inscrire
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <input type="password" name="password" required 
+                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200">
+                    </div>
+                </div>
+
+                <!-- Role selection -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Je suis un...</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <select name="role" id="role" required 
+                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white appearance-none cursor-pointer">
+                            <option value="sportif">Sportif</option>
+                            <option value="coach">Coach</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coach specific fields -->
+                <div id="coach-fields" class="hidden space-y-5 pt-5 border-t-2 border-indigo-100 transition-all duration-300">
+                    <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span class="text-sm font-semibold text-indigo-800">Informations Coach</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Discipline</label>
+                                <input name="discipline" type="text" 
+                                    class="block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                                    placeholder="ex: Fitness, Yoga...">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Années d'expérience</label>
+                                <input name="experience" type="number" 
+                                    class="block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                                <textarea name="description" rows="3" 
+                                    class="block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 resize-none"
+                                    placeholder="Parlez-nous de votre parcours..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:scale-[1.02]">
+                        <span>S'inscrire</span>
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
                     </button>
                 </div>
             </form>
+
+            <!-- Divider -->
+            <div class="mt-8 relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-200"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-gradient-to-br from-gray-50 to-white text-gray-500">ou</span>
+                </div>
+            </div>
+
+            <!-- Login link -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    Vous avez déjà un compte ? 
+                    <a href="{{ base_url }}/login" class="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
+                        Connectez-vous
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 </div>

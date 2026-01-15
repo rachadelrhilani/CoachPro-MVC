@@ -1,15 +1,26 @@
 <div class="min-h-screen flex">
     <!-- Left Side - Image Section -->
-    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800 relative overflow-hidden">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://plus.unsplash.com/premium_photo-1664910059954-9fba97bc5d6e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/80 via-purple-900/70 to-indigo-900/80"></div>
+        
         <!-- Decorative elements -->
-        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full opacity-5">
             <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
             <div class="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
         
         <!-- Content -->
         <div class="relative z-10 flex flex-col justify-center items-center w-full p-12 text-white">
-            
+            <!-- Logo -->
+            <div class="mb-8">
+                <div class="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center shadow-2xl">
+                    <span class="text-4xl font-bold">C</span>
+                </div>
+            </div>
             
             <!-- Image placeholder - Sports/Coaching themed -->
             <div class="mb-8 relative">
@@ -47,8 +58,14 @@
     </div>
 
     <!-- Right Side - Form Section -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-gray-50 to-white">
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-100">
         <div class="w-full max-w-md">
+            <!-- Logo mobile -->
+            <div class="lg:hidden flex justify-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <span class="text-white text-2xl font-bold">C</span>
+                </div>
+            </div>
 
             <!-- Header -->
             <div class="mb-8">
@@ -104,22 +121,6 @@
                     </div>
                 </div>
 
-                <!-- Remember me & Forgot password -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox" 
-                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded cursor-pointer">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-700 cursor-pointer">
-                            Se souvenir de moi
-                        </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
-                            Mot de passe oublié ?
-                        </a>
-                    </div>
-                </div>
 
                 <!-- Submit button -->
                 <div class="pt-2">
