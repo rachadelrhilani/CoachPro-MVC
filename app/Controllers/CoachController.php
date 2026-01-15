@@ -14,6 +14,18 @@ class CoachController extends Controller
         parent::__construct();
         Security::requireRole('coach');
     }
+    public function dashboard()
+{
+    $user = $_SESSION['user'];
+    $coach = (new Coach())->findByUser($user['id']);
+
+    $stats = (new Seance())->statsByCoach($coach['id_coach']);
+
+    $this->render('coach/dashboard', [
+        'stats' => $stats
+    ]);
+}
+
 
     public function profile()
     {
@@ -72,16 +84,28 @@ class CoachController extends Controller
 
         $this->redirect('/coach/seances');
     }
-    public function deleteSeance($id)
-{
-    $seanceModel = new Seance();
+    public function deleteSeance()
+    {
+        Security::requireRole('coach');
 
-    if ($seanceModel->isReserved($id)) {
-        die('Impossible de supprimer une séance réservée');
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . '/coach/seances');
+            exit;
+        }
+
+        $idSeance = (int) $_POST['id_seance'];
+
+        $seanceModel = new Seance();
+
+        if ($seanceModel->isReserved($idSeance)) {
+            $_SESSION['error'] = "Impossible de supprimer une séance réservée";
+            header('Location: ' . BASE_URL . '/coach/seances');
+            exit;
+        }
+
+        $seanceModel->delete($idSeance);
+
+        header('Location: ' . BASE_URL . '/coach/seances');
+        exit;
     }
-
-    $seanceModel->delete($id);
-    $this->redirect('/coach/seances');
-}
-
 }

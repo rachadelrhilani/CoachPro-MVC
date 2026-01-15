@@ -1,23 +1,104 @@
 {% include 'partials/header.twig' %}
 {% include 'partials/nav.twig' %}
 
-<div class="max-w-7xl mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-4">Liste des coachs</h1>
-</div>
-{% for coach in coaches %}
-    <div class="border p-4 rounded">
-        <h2 class="font-bold">
-            {{ coach.prenom }} {{ coach.nom }}
-        </h2>
-        <p>Discipline : {{ coach.discipline }}</p>
-        <p>Expérience : {{ coach.annees_experience }} ans</p>
-        <p class="text-sm text-gray-600">
-            {{ coach.description }}
-        </p>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                Liste des coachs
+            </h1>
+            <div class="h-1 w-24 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></div>
+        </div>
+
+        {% for coach in coaches %}
+            <div class="coach-card group mb-6">
+                <div class="flex items-start space-x-6">
+                    <!-- Avatar -->
+                    <div class="flex-shrink-0">
+                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                            {{ coach.prenom|slice(0, 1)|upper }}{{ coach.nom|slice(0, 1)|upper }}
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-indigo-600 transition-colors duration-300">
+                            {{ coach.prenom }} {{ coach.nom }}
+                        </h2>
+
+                        <div class="flex flex-wrap gap-4 mb-4">
+                            <!-- Discipline Badge -->
+                            <div class="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full border border-indigo-200">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                </svg>
+                                <span class="text-sm font-semibold text-indigo-800">
+                                    Discipline : <span class="font-bold">{{ coach.discipline }}</span>
+                                </span>
+                            </div>
+
+                            <!-- Experience Badge -->
+                            <div class="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full border border-emerald-200">
+                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm font-semibold text-emerald-800">
+                                    Expérience : <span class="font-bold">{{ coach.annees_experience }} ans</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 leading-relaxed">
+                            {{ coach.description }}
+                        </p>
+                    </div>
+
+                    <!-- Decorative element -->
+                    <div class="hidden lg:block flex-shrink-0">
+                        <div class="w-1 h-24 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-12 text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <p class="text-gray-600 text-lg font-medium">Aucun coach disponible pour le moment.</p>
+            </div>
+        {% endfor %}
     </div>
-{% else %}
-    <p>Aucun coach disponible</p>
-{% endfor %}
+</div>
+
+<style>
+.coach-card {
+    @apply bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all duration-300 relative overflow-hidden;
+}
+
+.coach-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #6366f1, #a855f7);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.coach-card:hover::before {
+    transform: scaleX(1);
+}
+
+.coach-card:hover {
+    @apply shadow-xl -translate-y-1;
+}
+</style>
 
 </body>
 </html>

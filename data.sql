@@ -47,4 +47,7 @@ CREATE TABLE reservation (
     FOREIGN KEY (id_sportif) REFERENCES sportif(id_sportif) ON DELETE CASCADE
 );
  */
- SELECT * FROM utilisateur
+SELECT s.*, c.nom, c.prenom, c.discipline
+            FROM seance s
+            JOIN coach c ON c.id_coach = s.id_coach
+            ORDER BY s.date_seance ASC

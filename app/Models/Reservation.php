@@ -12,6 +12,55 @@ class Reservation
         $this->db = Database::getInstance();
     }
 
+     public function exists(int $idSeance): bool
+    {
+        $stmt = $this->db->prepare(
+            "SELECT 1 FROM reservation WHERE id_seance = :id_seance LIMIT 1"
+        );
+
+        $stmt->execute([
+            'id_seance' => $idSeance
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
+
+
+    public function create(int $idSeance, int $idSportif): bool
+    {
+        try {
+            $this->db->beginTransaction();
+
+            // Créer la réservation
+            $stmt = $this->db->prepare(
+                "INSERT INTO reservation (id_seance, id_sportif)
+                 VALUES (:id_seance, :id_sportif)"
+            );
+
+            $stmt->execute([
+                'id_seance'  => $idSeance,
+                'id_sportif' => $idSportif
+            ]);
+
+            // Mettre à jour le statut de la séance
+            $stmt = $this->db->prepare(
+                "UPDATE seance
+                 SET statut = 'reservee'
+                 WHERE id_seance = :id_seance"
+            );
+
+            $stmt->execute([
+                'id_seance' => $idSeance
+            ]);
+
+            $this->db->commit();
+            return true;
+
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            return false;
+        }
+    }
     public function bySportif(int $sportifId)
 {
     $stmt = $this->db->prepare("

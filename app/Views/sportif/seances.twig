@@ -1,28 +1,112 @@
 {% include 'partials/header.twig' %}
 {% include 'partials/nav.twig' %}
 
-<div class="max-w-6xl mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-4">Séances disponibles</h1>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                Séances disponibles
+            </h1>
+            <div class="h-1 w-24 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></div>
+        </div>
 
-    {% if seances is empty %}
-        <p>Aucune séance disponible.</p>
+        {% if seances is empty %}
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-12 text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                    </svg>
+                </div>
+                <p class="text-gray-600 text-lg font-medium">Aucune séance disponible pour le moment.</p>
+            </div>
+        {% else %}
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                        </svg>
+                                        <span>Coach</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                        </svg>
+                                        <span>Discipline</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                        <span>Date</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        <span>Heure</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+    Action
+</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            {% for s in seances %}
+                                <tr class="hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/50 transition-all duration-300 group">
+                                   
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-800 border border-indigo-200">
+                                            {{ s.nom }}  {{ s.prenom }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-800 border border-indigo-200">
+                                            {{ s.discipline }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-gray-700 font-medium">{{ s.date_seance }}</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg text-sm font-semibold bg-gray-100 text-gray-800 border border-gray-200">
+                                            {{ s.heure }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+    {% if s.statut == 'disponible' %}
+        <form method="POST" action="{{ base_url }}/sportif/reservations/create">
+            <input type="hidden" name="id_seance" value="{{ s.id_seance }}">
+
+            <button class="px-4 py-2 rounded-xl text-white font-semibold
+                           bg-gradient-to-r from-indigo-600 to-purple-600
+                           hover:from-indigo-700 hover:to-purple-700
+                           transition-all duration-300 shadow-md">
+                Réserver
+            </button>
+        </form>
     {% else %}
-        <table class="w-full border">
-            <tr class="bg-gray-100">
-                <th>Coach</th>
-                <th>Discipline</th>
-                <th>Date</th>
-                <th>Heure</th>
-            </tr>
-
-            {% for s in seances %}
-                <tr>
-                    <td>{{ s.nom }} {{ s.prenom }}</td>
-                    <td>{{ s.discipline }}</td>
-                    <td>{{ s.date_seance }}</td>
-                    <td>{{ s.heure_debut }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+        <span class="text-red-500 font-semibold">Déjà réservée</span>
     {% endif %}
+</td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </div>

@@ -1,0 +1,21 @@
+{% include 'partials/header.twig' %}
+{% include 'partials/nav.twig' %}
+
+<div class="max-w-5xl mx-auto p-6 grid grid-cols-3 gap-6">
+    <div class="bg-white shadow p-4 rounded">
+        <h3 class="text-gray-500">Total séances</h3>
+        <p class="text-3xl font-bold">{{ stats.total }}</p>
+    </div>
+
+    <div class="bg-green-100 p-4 rounded">
+        <h3 class="text-green-700">Disponibles</h3>
+        <p class="text-3xl font-bold">{{ stats.disponible }}</p>
+    </div>
+
+    <div class="bg-red-100 p-4 rounded">
+        <h3 class="text-red-700">Réservées</h3>
+        <p class="text-3xl font-bold">{{ stats.reservee }}</p>
+    </div>
+</div>
+</body>
+</html>
