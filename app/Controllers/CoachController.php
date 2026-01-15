@@ -6,6 +6,7 @@ use App\Models\Coach;
 use App\Models\Seance;
 use Core\Controller;
 use Core\Security;
+use Core\Session;
 
 class CoachController extends Controller
 {
@@ -107,5 +108,20 @@ class CoachController extends Controller
 
         header('Location: ' . BASE_URL . '/coach/seances');
         exit;
+    }
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/coach/profile');
+        }
+
+        $coachModel = new Coach();
+
+        $coachModel->update(
+            Session::get('user')['id'],
+            $_POST
+        );
+
+        $this->redirect('/coach/profile');
     }
 }

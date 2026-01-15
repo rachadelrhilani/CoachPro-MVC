@@ -42,4 +42,25 @@ class Coach extends User
         $stmt->execute(['id' => $userId]);
         return $stmt->fetch();
     }
+    public function update(int $userId, array $data): bool
+    {
+        $stmt = $this->db->prepare(
+            "UPDATE coach SET
+                nom = :nom,
+                prenom = :prenom,
+                discipline = :discipline,
+                annees_experience = :annees_experience,
+                description = :description
+             WHERE id_user = :id_user"
+        );
+
+        return $stmt->execute([
+            'nom' => htmlspecialchars($data['nom']),
+            'prenom' => htmlspecialchars($data['prenom']),
+            'discipline' => htmlspecialchars($data['discipline']),
+            'annees_experience' => (int) $data['annees_experience'],
+            'description' => htmlspecialchars($data['description']),
+            'id_user' => $userId
+        ]);
+    }
 }
