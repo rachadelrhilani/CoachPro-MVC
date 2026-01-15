@@ -1,2 +1,50 @@
 {% include 'partials/header.twig' %}
 {% include 'partials/nav.twig' %}
+
+<div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Mes séances</h1>
+
+    {% if seances is empty %}
+        <p class="text-gray-500">Aucune séance créée.</p>
+    {% else %}
+        <table class="w-full border-collapse border">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="border p-2">Date</th>
+                    <th class="border p-2">Heure</th>
+                    <th class="border p-2">Durée (min)</th>
+                    <th class="border p-2">Statut</th>
+                    <th class="border p-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for seance in seances %}
+                    <tr>
+                        <td class="border p-2">{{ seance.date_seance }}</td>
+                        <td class="border p-2">{{ seance.heure }}</td>
+                        <td class="border p-2">{{ seance.duree }}</td>
+                        <td class="border p-2">
+                            {% if seance.statut == 'disponible' %}
+                                <span class="text-green-600 font-semibold">Disponible</span>
+                            {% else %}
+                                <span class="text-red-600 font-semibold">Réservée</span>
+                            {% endif %}
+                        </td>
+                        <td class="border p-2">
+                            {% if seance.statut == 'disponible' %}
+                                <a href="/coach/seance/delete/{{ seance.id_seance }}"
+                                   class="text-red-600 hover:underline">
+                                   Supprimer
+                                </a>
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+</body>
+</html>

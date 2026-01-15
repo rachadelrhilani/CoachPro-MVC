@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use PDO;
@@ -23,5 +24,15 @@ class Seance
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+    public function byCoach(int $coachId)
+    {
+        $stmt = $this->db->prepare("
+        SELECT *
+        FROM seance
+        WHERE id_coach = :id
+        ORDER BY date_seance, heure
+    ");
+        $stmt->execute(['id' => $coachId]);
+        return $stmt->fetchAll();
+    }
 }

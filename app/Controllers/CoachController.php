@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\Coach;
@@ -14,24 +15,46 @@ class CoachController extends Controller
     }
 
     public function profile()
+    {
+        $user = $_SESSION['user'];
+
+        $coachModel = new Coach;
+        $coach = $coachModel->findByUser($user['id']);
+
+        $this->render('coach/profile', [
+            'coach' => $coach
+        ]);
+    }
+
+    public function seances()
+    {
+        $user = $_SESSION['user'];
+
+        $coachModel = new \App\Models\Coach();
+        $coach = $coachModel->findByUser($user['id']);
+
+        $seanceModel = new \App\Models\Seance();
+        $seances = $seanceModel->byCoach($coach['id_coach']);
+
+        $this->render('coach/seances', [
+            'seances' => $seances
+        ]);
+    }
+
+
+    public function reservations()
 {
     $user = $_SESSION['user'];
 
     $coachModel = new Coach;
     $coach = $coachModel->findByUser($user['id']);
 
-    $this->render('coach/profile', [
-        'coach' => $coach
+    $reservationModel = new \App\Models\Reservation();
+    $reservations = $reservationModel->byCoach($coach['id_coach']);
+
+    $this->render('coach/reservations', [
+        'reservations' => $reservations
     ]);
 }
 
-    public function seances()
-    {
-        $this->render('coach/seances');
-    }
-
-    public function reservations()
-    {
-        $this->render('coach/reservations');
-    }
 }

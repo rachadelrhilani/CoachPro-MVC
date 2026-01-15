@@ -34,5 +34,25 @@ class Reservation
     $stmt->execute(['id' => $sportifId]);
     return $stmt->fetchAll();
 }
+public function byCoach(int $coachId)
+{
+    $stmt = $this->db->prepare("
+        SELECT 
+            s.date_seance,
+            s.heure,
+            s.duree,
+            sp.nom,
+            sp.prenom
+        FROM reservation r
+        JOIN seance s ON s.id_seance = r.id_seance
+        JOIN sportif sp ON sp.id_sportif = r.id_sportif
+        WHERE s.id_coach = :id
+        ORDER BY s.date_seance DESC
+    ");
+
+    $stmt->execute(['id' => $coachId]);
+    return $stmt->fetchAll();
+}
+
 
 }

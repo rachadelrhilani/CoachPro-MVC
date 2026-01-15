@@ -1,2 +1,35 @@
 {% include 'partials/header.twig' %}
 {% include 'partials/nav.twig' %}
+
+<div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Séances réservées</h1>
+
+    {% if reservations is empty %}
+        <p class="text-gray-500">Aucune réservation.</p>
+    {% else %}
+        <table class="w-full border-collapse border">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="border p-2">Sportif</th>
+                    <th class="border p-2">Date</th>
+                    <th class="border p-2">Heure</th>
+                    <th class="border p-2">Durée</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reservations %}
+                    <tr>
+                        <td class="border p-2">
+                            {{ r.nom }} {{ r.prenom }}
+                        </td>
+                        <td class="border p-2">{{ r.date_seance }}</td>
+                        <td class="border p-2">{{ r.heure }}</td>
+                        <td class="border p-2">{{ r.duree }} min</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use PDO;
@@ -14,7 +15,7 @@ class Coach extends User
 
         $stmt->execute($data);
     }
-   public function all(): array
+    public function all(): array
     {
         $stmt = $this->db->prepare("
             SELECT 
@@ -32,5 +33,13 @@ class Coach extends User
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function findByUser(int $userId)
+    {
+        $stmt = $this->db->prepare("
+        SELECT * FROM coach WHERE id_user = :id
+    ");
+        $stmt->execute(['id' => $userId]);
+        return $stmt->fetch();
     }
 }
