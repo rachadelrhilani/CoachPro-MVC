@@ -1,68 +1,207 @@
 {% include 'partials/header.twig' %}
 {% include 'partials/nav.twig' %}
 
-<h2 class="text-xl font-bold mb-4">Créer une séance</h2>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Create Session Section -->
+        <div class="mb-10">
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white">Créer une séance</h2>
+                    </div>
+                </div>
 
-<form method="POST" action="{{ base_url }}/coach/seances/create" class="grid grid-cols-4 gap-4 mb-8">
-    <input type="date" name="date_seance" required class="border p-2 rounded">
-    <input type="time" name="heure" required class="border p-2 rounded">
-    <input type="number" name="duree" placeholder="Durée (min)" required class="border p-2 rounded">
+                <!-- Form -->
+                <div class="p-8">
+                    <form method="POST" action="{{ base_url }}/coach/seances/create" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        
+                        <!-- Date Input -->
+                        <div class="relative">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Date</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <input type="date" name="date_seance" required 
+                                    class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                        </div>
 
-    <button class="bg-green-600 text-white rounded px-4">
-        Ajouter
-    </button>
-</form>
+                        <!-- Time Input -->
+                        <div class="relative">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Heure</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <input type="time" name="heure" required 
+                                    class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                        </div>
 
-<div class="max-w-6xl mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-4">Mes séances</h1>
+                        <!-- Duration Input -->
+                        <div class="relative">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Durée (min)</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <input type="number" name="duree" placeholder="60" required 
+                                    class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                        </div>
 
-    {% if seances is empty %}
-        <p class="text-gray-500">Aucune séance créée.</p>
-    {% else %}
-        <table class="w-full border-collapse border">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="border p-2">Date</th>
-                    <th class="border p-2">Heure</th>
-                    <th class="border p-2">Durée (min)</th>
-                    <th class="border p-2">Statut</th>
-                    <th class="border p-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for seance in seances %}
-                    <tr>
-                        <td class="border p-2">{{ seance.date_seance }}</td>
-                        <td class="border p-2">{{ seance.heure }}</td>
-                        <td class="border p-2">{{ seance.duree }}</td>
-                        <td class="border p-2">
-                            {% if seance.statut == 'disponible' %}
-                                <span class="text-green-600 font-semibold">Disponible</span>
-                            {% else %}
-                                <span class="text-red-600 font-semibold">Réservée</span>
-                            {% endif %}
-                        </td>
-                        <td class="border p-2">
-                            {% if seance.statut == 'disponible' %}
-<form method="POST"
-      action="{{ base_url }}/coach/seances/delete"
-      onsubmit="return confirm('Supprimer cette séance ?')">
+                        <!-- Submit Button -->
+                        <div class="flex items-end">
+                            <button class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl px-6 py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                                <span>Ajouter</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-    <input type="hidden" name="id_seance" value="{{ seance.id_seance }}">
-    <button class="text-red-600 hover:underline">
-        Supprimer
-    </button>
-</form>
-{% else %}
-—
-{% endif %}
+        <!-- Sessions List Section -->
+        <div>
+            <div class="mb-6">
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                    Mes séances
+                </h1>
+                <div class="h-1 w-24 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></div>
+            </div>
 
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+            {% if seances is empty %}
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-12 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-500 text-lg font-medium">Aucune séance créée.</p>
+                    <p class="text-gray-400 text-sm mt-2">Utilisez le formulaire ci-dessus pour créer votre première séance.</p>
+                </div>
+            {% else %}
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                                    <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            <span>Date</span>
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <span>Heure</span>
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                            </svg>
+                                            <span>Durée (min)</span>
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <span>Statut</span>
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                            </svg>
+                                            <span>Action</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                {% for seance in seances %}
+                                    <tr class="hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/50 transition-all duration-300 group">
+                                        <td class="px-6 py-4">
+                                            <span class="font-semibold text-gray-800">{{ seance.date_seance }}</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-sm font-semibold bg-gray-100 text-gray-800 border border-gray-200">
+                                                {{ seance.heure }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-gray-700 font-medium">{{ seance.duree }}</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {% if seance.statut == 'disponible' %}
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
+                                                    Disponible
+                                                </span>
+                                            {% else %}
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-red-100 to-rose-100 text-red-800 border border-red-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                                    </svg>
+                                                    Réservée
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {% if seance.statut == 'disponible' %}
+                                                <form method="POST" action="{{ base_url }}/coach/seances/delete" onsubmit="return confirm('Supprimer cette séance ?')">
+                                                    <input type="hidden" name="id_seance" value="{{ seance.id_seance }}">
+                                                    <button class="inline-flex items-center px-4 py-2 text-red-600 hover:text-white hover:bg-red-600 font-semibold rounded-lg transition-all duration-300 border border-red-600 space-x-2 group-hover:shadow-md">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                        </svg>
+                                                        <span>Supprimer</span>
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <span class="text-gray-400 font-medium">—</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
