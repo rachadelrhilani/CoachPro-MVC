@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Coach;
 use Core\Controller;
 use Core\Security;
 
@@ -13,9 +14,16 @@ class CoachController extends Controller
     }
 
     public function profile()
-    {
-        $this->render('coach/profile');
-    }
+{
+    $user = $_SESSION['user'];
+
+    $coachModel = new Coach;
+    $coach = $coachModel->findByUser($user['id']);
+
+    $this->render('coach/profile', [
+        'coach' => $coach
+    ]);
+}
 
     public function seances()
     {

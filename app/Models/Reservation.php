@@ -13,17 +13,26 @@ class Reservation
     }
 
     public function bySportif(int $sportifId)
-    {
-        $stmt = $this->db->prepare("
-            SELECT r.*, s.date_seance, s.heure_debut, c.nom, c.prenom
-            FROM reservation r
-            JOIN seance s ON s.id_seance = r.id_seance
-            JOIN coach c ON c.id_user = s.id_coach
-            WHERE r.id_sportif = :id
-            ORDER BY s.date_seance DESC
-        ");
+{
+    $stmt = $this->db->prepare("
+        SELECT 
+            r.id_reservation,
+            r.date_reservation,
+            s.date_seance,
+            s.heure,
+            s.duree,
+            c.nom,
+            c.prenom,
+            c.discipline
+        FROM reservation r
+        JOIN seance s ON s.id_seance = r.id_seance
+        JOIN coach c ON c.id_coach = s.id_coach
+        WHERE r.id_sportif = :id
+        ORDER BY s.date_seance DESC
+    ");
 
-        $stmt->execute(['id' => $sportifId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $stmt->execute(['id' => $sportifId]);
+    return $stmt->fetchAll();
+}
+
 }

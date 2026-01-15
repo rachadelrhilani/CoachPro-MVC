@@ -1,2 +1,28 @@
 {% include 'partials/header.twig' %}
 {% include 'partials/nav.twig' %}
+
+<div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Séances disponibles</h1>
+
+    {% if seances is empty %}
+        <p>Aucune séance disponible.</p>
+    {% else %}
+        <table class="w-full border">
+            <tr class="bg-gray-100">
+                <th>Coach</th>
+                <th>Discipline</th>
+                <th>Date</th>
+                <th>Heure</th>
+            </tr>
+
+            {% for s in seances %}
+                <tr>
+                    <td>{{ s.nom }} {{ s.prenom }}</td>
+                    <td>{{ s.discipline }}</td>
+                    <td>{{ s.date_seance }}</td>
+                    <td>{{ s.heure_debut }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</div>
