@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Coach;
+use App\Models\Seance;
 use Core\Controller;
 use Core\Security;
 
@@ -30,10 +31,10 @@ class CoachController extends Controller
     {
         $user = $_SESSION['user'];
 
-        $coachModel = new \App\Models\Coach();
+        $coachModel = new Coach();
         $coach = $coachModel->findByUser($user['id']);
 
-        $seanceModel = new \App\Models\Seance();
+        $seanceModel = new Seance();
         $seances = $seanceModel->byCoach($coach['id_coach']);
 
         $this->render('coach/seances', [
@@ -43,18 +44,44 @@ class CoachController extends Controller
 
 
     public function reservations()
+    {
+        $user = $_SESSION['user'];
+
+        $coachModel = new Coach;
+        $coach = $coachModel->findByUser($user['id']);
+
+        $reservationModel = new \App\Models\Reservation();
+        $reservations = $reservationModel->byCoach($coach['id_coach']);
+
+        $this->render('coach/reservations', [
+            'reservations' => $reservations
+        ]);
+    }
+    public function createSeance()
+    {
+        $user = $_SESSION['user'];
+
+        $coach = (new Coach())->findByUser($user['id']);
+
+        (new Seance())->create([
+            'date_seance' => $_POST['date_seance'],
+            'heure'       => $_POST['heure'],
+            'duree'       => $_POST['duree'],
+            'id_coach'    => $coach['id_coach']
+        ]);
+
+        $this->redirect('/coach/seances');
+    }
+    public function deleteSeance($id)
 {
-    $user = $_SESSION['user'];
+    $seanceModel = new Seance();
 
-    $coachModel = new Coach;
-    $coach = $coachModel->findByUser($user['id']);
+    if ($seanceModel->isReserved($id)) {
+        die('Impossible de supprimer une séance réservée');
+    }
 
-    $reservationModel = new \App\Models\Reservation();
-    $reservations = $reservationModel->byCoach($coach['id_coach']);
-
-    $this->render('coach/reservations', [
-        'reservations' => $reservations
-    ]);
+    $seanceModel->delete($id);
+    $this->redirect('/coach/seances');
 }
 
 }

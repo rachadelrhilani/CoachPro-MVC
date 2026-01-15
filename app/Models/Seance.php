@@ -35,4 +35,13 @@ class Seance
         $stmt->execute(['id' => $coachId]);
         return $stmt->fetchAll();
     }
+    public function create(array $data)
+    {
+        $stmt = $this->db->prepare("
+        INSERT INTO seance (date_seance, heure, duree, id_coach)
+        VALUES (:date_seance, :heure, :duree, :id_coach)
+    ");
+        $stmt->execute($data);
+    }
+    
 }

@@ -17,7 +17,7 @@ Router::get('/logout', 'AuthController@logout');
 Router::get('/sportif/coaches', 'SportifController@coaches');
 Router::get('/sportif/seances', 'SportifController@seances');
 Router::get('/sportif/history', 'SportifController@history');
-
+Router::post('/coach/seances/create', 'CoachController@createSeance');
 /* ---------- COACH ---------- */
 Router::get('/coach/profile', 'CoachController@profile');
 Router::get('/coach/seances', 'CoachController@seances');
