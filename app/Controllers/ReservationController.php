@@ -42,6 +42,7 @@ class ReservationController extends Controller
     }
     public function history()
     {
+        Security::requireRole('sportif');
         $sportifId = Session::get('user')['id'];
 
         $reservationModel = new Reservation();
@@ -53,6 +54,7 @@ class ReservationController extends Controller
     }
     public function reservations()
     {
+        Security::requireRole('coach');
         $user = $_SESSION['user'];
 
         $coachModel = new Coach;

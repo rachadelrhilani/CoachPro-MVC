@@ -17,4 +17,21 @@ class Session
     {
         session_destroy();
     }
+    public static function flash(string $key, ?string $message = null)
+    {
+        // SET flash
+        if ($message !== null) {
+            $_SESSION['flash'][$key] = $message;
+            return;
+        }
+
+        // GET flash
+        if (isset($_SESSION['flash'][$key])) {
+            $msg = $_SESSION['flash'][$key];
+            unset($_SESSION['flash'][$key]); // auto delete
+            return $msg;
+        }
+
+        return null;
+    }
 }

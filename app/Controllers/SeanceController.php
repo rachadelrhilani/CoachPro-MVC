@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\Coach;
 use App\Models\Seance;
 use Core\Controller;
@@ -18,23 +20,24 @@ class SeanceController extends Controller
         $this->render('sportif/seances');
     }
     public function seances()
-{
-    $user = Session::get('user');
-
-    $coach = (new Coach())->findByUser($user['id']);
-
-    $seanceModel = new Seance();
-
-    $seances = $seanceModel->byCoach($coach['id_coach']);
-    $stats   = $seanceModel->statsByCoach($coach['id_coach']);
-
-    $this->render('coach/seances', [
-        'seances' => $seances,
-        'stats'   => $stats
-    ]);
-}
-public function seancesport()
     {
+        Security::requireRole('coach');
+        $user = Session::get('user');
+        $coach = (new Coach())->findByUser($user['id']);
+
+        $seanceModel = new Seance();
+
+        $seances = $seanceModel->byCoach($coach['id_coach']);
+        $stats   = $seanceModel->statsByCoach($coach['id_coach']);
+
+        $this->render('coach/seances', [
+            'seances' => $seances,
+            'stats'   => $stats
+        ]);
+    }
+    public function seancesport()
+    {
+        Security::requireRole('sportif');
         $seanceModel = new Seance();
         $seances = $seanceModel->all();
 
@@ -58,57 +61,56 @@ public function seancesport()
         $this->redirect('/coach/seances');
     }
     public function editSeance($id)
-{
-    $user = $_SESSION['user'];
-    $coach = (new Coach())->findByUser($user['id']);
+    {
+        $user = $_SESSION['user'];
+        $coach = (new Coach())->findByUser($user['id']);
 
-    $seanceModel = new Seance();
-    $seance = $seanceModel->find((int)$id);
+        $seanceModel = new Seance();
+        $seance = $seanceModel->find((int)$id);
 
-    if (!$seance) {
-        $this->redirect('/coach/seances');
+        if (!$seance) {
+            $this->redirect('/coach/seances');
+        }
+
+
+        if ($seance['id_coach'] != $coach['id_coach']) {
+            $this->redirect('/coach/seances');
+        }
+
+        $this->render('coach/edit_seance', [
+            'seance' => $seance
+        ]);
     }
 
+    public function updateSeance($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/coach/seances');
+        }
 
-    if ($seance['id_coach'] != $coach['id_coach']) {
+        $user = $_SESSION['user'];
+        $coach = (new Coach())->findByUser($user['id']);
+
+        $seanceModel = new Seance();
+        $seance = $seanceModel->find((int)$id);
+
+
+        if (!$seance) {
+            $this->redirect('/coach/seances');
+        }
+
+        if ($seance['id_coach'] != $coach['id_coach']) {
+            $this->redirect('/coach/seances');
+        }
+
+        $seanceModel->update((int)$id, [
+            'date_seance' => $_POST['date_seance'],
+            'heure'       => $_POST['heure'],
+            'duree'       => $_POST['duree']
+        ]);
+
         $this->redirect('/coach/seances');
     }
-
-    $this->render('coach/edit_seance', [
-        'seance' => $seance
-    ]);
-}
-
-public function updateSeance($id)
-{
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        $this->redirect('/coach/seances');
-    }
-
-    $user = $_SESSION['user'];
-    $coach = (new Coach())->findByUser($user['id']);
-
-    $seanceModel = new Seance();
-    $seance = $seanceModel->find((int)$id);
-
-    // ❌ séance inexistante
-    if (!$seance) {
-        $this->redirect('/coach/seances');
-    }
-
-    // 🔐 sécurité
-    if ($seance['id_coach'] != $coach['id_coach']) {
-        $this->redirect('/coach/seances');
-    }
-
-    $seanceModel->update((int)$id, [
-        'date_seance' => $_POST['date_seance'],
-        'heure'       => $_POST['heure'],
-        'duree'       => $_POST['duree']
-    ]);
-
-    $this->redirect('/coach/seances');
-}
 
 
 

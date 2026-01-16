@@ -18,6 +18,7 @@ class CoachController extends Controller
 
     public function profile()
     {
+        Security::requireRole('coach');
         $user = $_SESSION['user'];
 
         $coachModel = new Coach;
@@ -43,7 +44,7 @@ class CoachController extends Controller
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/coach/profile');
         }
-
+           Security::requireRole('coach');
         $coachModel = new Coach();
 
         $coachModel->update(

@@ -21,11 +21,12 @@ Router::post('/coach/seances/delete', 'SeanceController@deleteSeance');
 Router::get('/coach/seances/edit/{id}', 'SeanceController@editSeance');
 Router::post('/coach/seances/update/{id}', 'SeanceController@updateSeance');
 /* ---------- SPORTIF ---------- */
-Router::get('/sportif/coaches', 'CoachController@coaches');
-
+Router::get('/sportif/profile', 'SportifController@profile');
+Router::post('/sportif/profile/update', 'SportifController@updateProfile');
 /* ---------- COACH ---------- */
 Router::get('/coach/profile', 'CoachController@profile');
 Router::post('/coach/profile/update','CoachController@updateProfile');
+Router::get('/sportif/coaches', 'CoachController@coaches');
 /* ---------- RESERVATION ---------- */
 Router::get('/reservation/create/{id}', 'ReservationController@create');
 Router::post('/reservation/store', 'ReservationController@store');
