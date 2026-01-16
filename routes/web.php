@@ -13,19 +13,23 @@ Router::get('/register', 'AuthController@registerForm');
 Router::post('/register', 'AuthController@register');
 
 Router::get('/logout', 'AuthController@logout');
+/* ---------- Seance ---------- */
+Router::get('/coach/seances', 'SeanceController@seances');
+Router::get('/sportif/seances', 'SeanceController@seancesport');
+Router::post('/coach/seances/create', 'SeanceController@createSeance');
+Router::post('/coach/seances/delete', 'SeanceController@deleteSeance');
+Router::get('/coach/seances/edit/{id}', 'SeanceController@editSeance');
+Router::post('/coach/seances/update/{id}', 'SeanceController@updateSeance');
 /* ---------- SPORTIF ---------- */
-Router::get('/sportif/coaches', 'SportifController@coaches');
-Router::get('/sportif/seances', 'SportifController@seances');
-Router::get('/sportif/history', 'SportifController@history');
-Router::post('/coach/seances/create', 'CoachController@createSeance');
+Router::get('/sportif/coaches', 'CoachController@coaches');
+
 /* ---------- COACH ---------- */
 Router::get('/coach/profile', 'CoachController@profile');
-Router::get('/coach/seances', 'CoachController@seances');
-Router::get('/coach/reservations', 'CoachController@reservations');
 Router::post('/coach/profile/update','CoachController@updateProfile');
-Router::post('/coach/seances/delete', 'CoachController@deleteSeance');
 /* ---------- RESERVATION ---------- */
 Router::get('/reservation/create/{id}', 'ReservationController@create');
 Router::post('/reservation/store', 'ReservationController@store');
+Router::get('/sportif/history', 'ReservationController@history');
+Router::get('/coach/reservations', 'ReservationController@reservations');
 Router::post('/sportif/reservations/create', 'ReservationController@store');
 

@@ -2,16 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\Coach;
 use App\Models\Reservation;
 use Core\Controller;
 use Core\Security;
+use Core\Session;
 
 class ReservationController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
-        Security::requireRole('sportif');
     }
 
     public function create($id)
@@ -38,5 +39,30 @@ class ReservationController extends Controller
 
         header('Location: ' . BASE_URL . '/sportif/history');
         exit;
+    }
+    public function history()
+    {
+        $sportifId = Session::get('user')['id'];
+
+        $reservationModel = new Reservation();
+        $reservations = $reservationModel->bySportif($sportifId);
+
+        $this->render('sportif/history', [
+            'reservations' => $reservations
+        ]);
+    }
+    public function reservations()
+    {
+        $user = $_SESSION['user'];
+
+        $coachModel = new Coach;
+        $coach = $coachModel->findByUser($user['id']);
+
+        $reservationModel = new \App\Models\Reservation();
+        $reservations = $reservationModel->byCoach($coach['id_coach']);
+
+        $this->render('coach/reservations', [
+            'reservations' => $reservations
+        ]);
     }
 }

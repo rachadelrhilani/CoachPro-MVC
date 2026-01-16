@@ -12,6 +12,29 @@ class Seance
     {
         $this->db = Database::getInstance();
     }
+    public function find($id)
+{
+    $stmt = $this->db->prepare("SELECT * FROM seance WHERE id_seance = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch();
+}
+
+public function update($id, $data)
+{
+    $stmt = $this->db->prepare("
+        UPDATE seance
+        SET date_seance = ?, heure = ?, duree = ?
+        WHERE id_seance = ?
+    ");
+
+    return $stmt->execute([
+        $data['date_seance'],
+        $data['heure'],
+        $data['duree'],
+        $id
+    ]);
+}
+
 
     public function all()
     {

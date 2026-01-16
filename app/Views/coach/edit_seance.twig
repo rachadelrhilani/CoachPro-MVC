@@ -1,0 +1,37 @@
+{% include 'partials/header.twig' %}
+{% include 'partials/nav.twig' %}
+
+<div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Modifier la séance</h1>
+
+    <form method="POST" action="{{ base_url }}/coach/seances/update/{{ seance.id_seance }}" class="space-y-4">
+
+        <input type="hidden" name="id_seance" value="{{ seance.id_seance }}">
+
+        <div>
+            <label>Date</label>
+            <input type="date" name="date_seance"
+                   value="{{ seance.date_seance }}"
+                   class="w-full border p-2 rounded">
+        </div>
+
+        <div>
+            <label>Heure</label>
+            <input type="time" name="heure"
+                   value="{{ seance.heure }}"
+                   class="w-full border p-2 rounded">
+        </div>
+
+        <div>
+            <label>Durée (minutes)</label>
+            <input type="number" name="duree"
+                   value="{{ seance.duree }}"
+                   class="w-full border p-2 rounded">
+        </div>
+
+        <button class="bg-indigo-600 text-white px-4 py-2 rounded">
+            Mettre à jour
+        </button>
+
+    </form>
+</div>

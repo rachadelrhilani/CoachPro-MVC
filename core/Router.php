@@ -8,12 +8,18 @@ class Router
 
     public static function get($uri, $action)
     {
-        self::$routes['GET'][$uri] = $action;
+        self::$routes['GET'][] = [
+            'uri' => trim($uri, '/'),
+            'action' => $action
+        ];
     }
 
     public static function post($uri, $action)
     {
-        self::$routes['POST'][$uri] = $action;
+        self::$routes['POST'][] = [
+            'uri' => trim($uri, '/'),
+            'action' => $action
+        ];
     }
 
     public function dispatch($uri, $method)
@@ -25,20 +31,31 @@ class Router
             $uri = substr($uri, strlen($basePath));
         }
 
-        if ($uri === '') {
-            $uri = '/';
+        $uri = trim($uri, '/');
+
+        foreach (self::$routes[$method] ?? [] as $route) {
+
+            // 🔹 transformer {id} en regex
+            $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $route['uri']);
+            $pattern = "#^$pattern$#";
+
+            if (preg_match($pattern, $uri, $matches)) {
+
+                array_shift($matches); // enlever l’URL complète
+
+                [$controller, $action] = explode('@', $route['action']);
+                $controller = "App\\Controllers\\$controller";
+
+                call_user_func_array(
+                    [new $controller, $action],
+                    $matches
+                );
+                return;
+            }
         }
 
-
-        if (!isset(self::$routes[$method][$uri])) {
-            http_response_code(404);
-            echo "404 - Page non trouvée";
-            return;
-        }
-
-        [$controller, $action] = explode('@', self::$routes[$method][$uri]);
-        $controller = "App\\Controllers\\$controller";
-
-        call_user_func([new $controller, $action]);
+        // ❌ 404
+        http_response_code(404);
+        echo "404 - Page non trouvée";
     }
 }

@@ -216,7 +216,15 @@
                                                 </span>
                                             {% endif %}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 flex gap-2">
+                                        <!-- Bouton Modifier -->
+    <a href="{{ base_url }}/coach/seances/edit/{{ seance.id_seance }}"
+       class="px-4 py-2 rounded-xl text-white font-semibold
+              bg-gradient-to-r from-yellow-500 to-orange-500
+              hover:from-yellow-600 hover:to-orange-600
+              transition-all duration-300 shadow-md">
+        Modifier
+    </a>
                                             {% if seance.statut == 'disponible' %}
                                                 <form method="POST" action="{{ base_url }}/coach/seances/delete" onsubmit="return confirm('Supprimer cette séance ?')">
                                                     <input type="hidden" name="id_seance" value="{{ seance.id_seance }}">
