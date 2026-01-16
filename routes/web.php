@@ -22,7 +22,6 @@ Router::post('/coach/seances/create', 'CoachController@createSeance');
 Router::get('/coach/profile', 'CoachController@profile');
 Router::get('/coach/seances', 'CoachController@seances');
 Router::get('/coach/reservations', 'CoachController@reservations');
-Router::get('/coach/dashboard', 'CoachController@dashboard');
 Router::post('/coach/profile/update','CoachController@updateProfile');
 Router::post('/coach/seances/delete', 'CoachController@deleteSeance');
 /* ---------- RESERVATION ---------- */

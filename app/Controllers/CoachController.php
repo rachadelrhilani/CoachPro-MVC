@@ -15,17 +15,6 @@ class CoachController extends Controller
         parent::__construct();
         Security::requireRole('coach');
     }
-    public function dashboard()
-{
-    $user = $_SESSION['user'];
-    $coach = (new Coach())->findByUser($user['id']);
-
-    $stats = (new Seance())->statsByCoach($coach['id_coach']);
-
-    $this->render('coach/dashboard', [
-        'stats' => $stats
-    ]);
-}
 
 
     public function profile()
@@ -41,19 +30,21 @@ class CoachController extends Controller
     }
 
     public function seances()
-    {
-        $user = $_SESSION['user'];
+{
+    $user = Session::get('user');
 
-        $coachModel = new Coach();
-        $coach = $coachModel->findByUser($user['id']);
+    $coach = (new Coach())->findByUser($user['id']);
 
-        $seanceModel = new Seance();
-        $seances = $seanceModel->byCoach($coach['id_coach']);
+    $seanceModel = new Seance();
 
-        $this->render('coach/seances', [
-            'seances' => $seances
-        ]);
-    }
+    $seances = $seanceModel->byCoach($coach['id_coach']);
+    $stats   = $seanceModel->statsByCoach($coach['id_coach']);
+
+    $this->render('coach/seances', [
+        'seances' => $seances,
+        'stats'   => $stats
+    ]);
+}
 
 
     public function reservations()
