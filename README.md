@@ -154,6 +154,10 @@ CoachPro(MVC)/
 
 ## Installation
 
-### Installer les dépendances
 ```bash
 https://github.com/rachadelrhilani/CoachPro-MVC
+```
+## Installer les dépendances
+```
+composer install
+```
