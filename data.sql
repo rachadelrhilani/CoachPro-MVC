@@ -47,3 +47,4 @@ CREATE TABLE reservation (
     FOREIGN KEY (id_sportif) REFERENCES sportif(id_sportif) ON DELETE CASCADE
 );
  */
+ SELECT * from coach

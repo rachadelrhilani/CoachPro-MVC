@@ -62,6 +62,7 @@ class SeanceController extends Controller
     }
     public function editSeance($id)
     {
+        Security::requireRole('coach');
         $user = $_SESSION['user'];
         $coach = (new Coach())->findByUser($user['id']);
 
@@ -84,6 +85,7 @@ class SeanceController extends Controller
 
     public function updateSeance($id)
     {
+        Security::requireRole('coach');
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/coach/seances');
         }

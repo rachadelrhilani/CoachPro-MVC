@@ -12,7 +12,6 @@ class Database
     {
         if (!self::$pdo) {
 
-            // ✅ Lit la config, PAS le .env
             $config = require dirname(__DIR__, 2) . '/config/database.php';
 
             try {

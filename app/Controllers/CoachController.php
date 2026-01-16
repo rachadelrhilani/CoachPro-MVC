@@ -31,6 +31,7 @@ class CoachController extends Controller
 
     public function coaches()
     {
+        Security::requireRole('sportif');
         $coachModel = new Coach();
         $coaches = $coachModel->all();
 

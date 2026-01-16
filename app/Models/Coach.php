@@ -6,6 +6,17 @@ use PDO;
 
 class Coach extends User
 {
+    public function findByUserId($userId)
+    {
+        $stmt = $this->db->prepare("
+        SELECT nom, prenom 
+        FROM coach 
+        WHERE id_user = :id_user
+    ");
+        $stmt->execute(['id_user' => $userId]);
+        return $stmt->fetch();
+    }
+
     public function createCoach(array $data)
     {
         $stmt = $this->db->prepare(

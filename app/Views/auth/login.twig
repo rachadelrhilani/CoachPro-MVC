@@ -57,100 +57,110 @@
         </div>
     </div>
 
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-[#fdfdff] relative overflow-hidden">
     
-    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-100">
-        <div class="w-full max-w-md">
-            <div class="lg:hidden flex justify-center mb-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    <span class="text-white text-2xl font-bold">C</span>
-                </div>
+    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
+    <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-purple-50 rounded-full blur-3xl opacity-50"></div>
+
+    <div class="w-full max-w-md relative z-10">
+        <div class="lg:hidden flex justify-center mb-10">
+            <div class="w-16 h-16 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-[1.5rem] flex items-center justify-center shadow-xl rotate-3">
+                <span class="text-white text-3xl font-black italic">C</span>
             </div>
+        </div>
 
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Connexion</h2>
-                <p class="text-gray-600">Accédez à votre espace CoachPro</p>
-            </div>
+        <div class="mb-10 text-center lg:text-left">
+            <h2 class="text-4xl font-black text-slate-900 tracking-tight mb-3">
+                Bon retour ! <span class="inline-block animate-bounce-slow">👋</span>
+            </h2>
+            <p class="text-slate-500 font-medium italic">Heureux de vous revoir sur CoachPro.</p>
+        </div>
 
-            {% if error %}
-                <div class="mb-6 bg-red-50 border-l-4 border-red-500 rounded-r-lg p-4 flex items-start shadow-sm">
-                    <svg class="h-5 w-5 text-red-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                    </svg>
-                    <p class="text-sm text-red-700 font-medium">{{ error }}</p>
+        {% if error %}
+            <div class="mb-8 p-4 bg-red-50 border-2 border-red-100 rounded-2xl flex items-center gap-3 animate-shake">
+                <div class="bg-red-500 rounded-full p-1 text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="3"/></svg>
                 </div>
-            {% endif %}
+                <p class="text-sm text-red-700 font-bold">{{ error }}</p>
+            </div>
+        {% endif %}
 
-       
-            <form method="POST" action="{{ base_url }}/login" class="space-y-5">
-                <input type="hidden" name="_csrf" value="{{ csrf_token }}">
-                
-                <div>
-                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Adresse Email
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
-                            </svg>
-                        </div>
-                        <input id="email" name="email" type="email" autocomplete="email" required 
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                            placeholder="nom@exemple.com">
+        <form method="POST" action="{{ base_url }}/login" class="space-y-6">
+            <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+            
+            <div class="space-y-2 group">
+                <label for="email" class="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-1 transition-colors group-focus-within:text-indigo-600">
+                    Adresse Email
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                        </svg>
                     </div>
+                    <input id="email" name="email" type="email" required 
+                        class="block w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-100 rounded-[1.2rem] text-slate-700 font-bold placeholder-slate-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50/50 transition-all duration-300 shadow-sm"
+                        placeholder="nom@exemple.com">
                 </div>
+            </div>
 
-                <!-- Password field -->
-                <div>
-                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+            <div class="space-y-2 group">
+                <div class="flex justify-between items-center px-1">
+                    <label for="password" class="text-xs font-black uppercase text-slate-400 tracking-[0.2em] transition-colors group-focus-within:text-indigo-600">
                         Mot de passe
                     </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                            </svg>
-                        </div>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required 
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                            placeholder="••••••••">
-                    </div>
+                    <a href="#" class="text-[10px] font-black uppercase text-indigo-500 hover:text-indigo-700">Oublié ?</a>
                 </div>
-
-
-                <!-- Submit button -->
-                <div class="pt-2">
-                    <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:scale-[1.02]">
-                        <span>Se connecter</span>
-                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
-                    </button>
-                </div>
-            </form>
-
-            <!-- Divider -->
-            <div class="mt-8 relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-200"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-4 bg-gradient-to-br from-gray-50 to-white text-gray-500">ou</span>
+                    </div>
+                    <input id="password" name="password" type="password" required 
+                        class="block w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-100 rounded-[1.2rem] text-slate-700 font-bold placeholder-slate-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50/50 transition-all duration-300 shadow-sm"
+                        placeholder="••••••••">
                 </div>
             </div>
 
-            <!-- Register link -->
-            <div class="mt-6 text-center">
-                <p class="text-sm text-gray-600">
-                    Pas encore de compte ? 
-                    <a href="{{ base_url }}/register" class="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
-                        Inscrivez-vous gratuitement
-                    </a>
-                </p>
+            <div class="pt-4">
+                <button type="submit" class="w-full flex justify-center items-center py-5 px-4 bg-slate-900 text-white rounded-[1.2rem] text-sm font-black uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-indigo-600 hover:shadow-indigo-200 hover:-translate-y-1 active:scale-95 transition-all duration-300 group">
+                    <span>Accéder au dashboard</span>
+                    <svg class="ml-3 w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
             </div>
+        </form>
+
+        <div class="mt-12 p-6 bg-slate-50/80 rounded-[2rem] border border-slate-100 text-center">
+            <p class="text-sm text-slate-500 font-medium">
+                Pas encore de compte ? 
+                <a href="{{ base_url }}/register" class="text-indigo-600 font-black hover:underline ml-1">
+                    S'inscrire gratuitement
+                </a>
+            </p>
         </div>
     </div>
 </div>
 
+<style>
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0) rotate(0); }
+        50% { transform: translateY(-10px) rotate(10deg); }
+    }
+    .animate-bounce-slow {
+        animation: bounce-slow 3s ease-in-out infinite;
+    }
+    .animate-shake {
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+</style>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="{{ base_url }}/assets/js/validation.js"></script>

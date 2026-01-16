@@ -35,13 +35,12 @@ class Router
 
         foreach (self::$routes[$method] ?? [] as $route) {
 
-            // 🔹 transformer {id} en regex
             $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $route['uri']);
             $pattern = "#^$pattern$#";
 
             if (preg_match($pattern, $uri, $matches)) {
 
-                array_shift($matches); // enlever l’URL complète
+                array_shift($matches); 
 
                 [$controller, $action] = explode('@', $route['action']);
                 $controller = "App\\Controllers\\$controller";

@@ -66,29 +66,38 @@ class AuthController extends Controller
 
 
     public function login()
-    {
-        Security::checkCsrfToken();
-        $user = (new User())->findByEmail($_POST['email']);
+{
+    Security::checkCsrfToken();
 
-        if (!$user || !password_verify($_POST['password'], $user['mot_de_passe'])) {
-            return $this->render('auth/login', [
-                'error' => 'Email ou mot de passe incorrect'
-            ]);
-        }
+    $user = (new User())->findByEmail($_POST['email']);
 
-        Session::set('user', [
-            'id' => $user['id_user'],
-            'email' => $user['email'],
-            'role' => $user['role']
+    if (!$user || !password_verify($_POST['password'], $user['mot_de_passe'])) {
+        return $this->render('auth/login', [
+            'error' => 'Email ou mot de passe incorrect'
         ]);
-
-
-        $this->redirect(
-            $user['role'] === 'coach'
-                ? '/coach/seances'
-                : '/sportif/coaches'
-        );
     }
+
+    if ($user['role'] === 'coach') {
+        $profil = (new Coach())->findByUserId($user['id_user']);
+    } else {
+        $profil = (new Sportif())->findByUserId($user['id_user']);
+    }
+
+    Session::set('user', [
+        'id' => $user['id_user'],
+        'email' => $user['email'],
+        'role' => $user['role'],
+        'nom' => $profil['nom'] ?? null,
+        'prenom' => $profil['prenom'] ?? null
+    ]);
+
+    $this->redirect(
+        $user['role'] === 'coach'
+            ? '/coach/seances'
+            : '/sportif/coaches'
+    );
+}
+
 
     public function logout()
     {

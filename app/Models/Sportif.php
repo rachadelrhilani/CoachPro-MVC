@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 class Sportif extends User
@@ -13,7 +14,7 @@ class Sportif extends User
 
         $stmt->execute($data);
     }
-    
+
 
     public function findByUser(int $userId)
     {
@@ -43,7 +44,7 @@ class Sportif extends User
             'id_user' => $userId
         ]);
 
-       
+
         $stmt = $this->db->prepare(
             "UPDATE utilisateur SET email = :email WHERE id_user = :id"
         );
@@ -53,5 +54,14 @@ class Sportif extends User
             'id'    => $userId
         ]);
     }
+    public function findByUserId($userId)
+    {
+        $stmt = $this->db->prepare("
+        SELECT nom, prenom 
+        FROM sportif 
+        WHERE id_user = :id_user
+    ");
+        $stmt->execute(['id_user' => $userId]);
+        return $stmt->fetch();
+    }
 }
-
