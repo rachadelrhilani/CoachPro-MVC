@@ -30,7 +30,7 @@
                     <p class="text-slate-500 text-sm mt-1">Gérez vos informations personnelles en un clic.</p>
                 </div>
 
-                <form method="POST" action="{{ base_url }}/sportif/profile/update" class="space-y-6">
+                <form id="sportif-profile-form" method="POST"  action="{{ base_url }}/sportif/profile/update" class="space-y-6">
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
@@ -86,3 +86,74 @@
         animation: bounce-short 2s ease-in-out infinite;
     }
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const form = document.querySelector('form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        let errors = [];
+
+        // Helpers
+        const get = name => form.querySelector(`[name="${name}"]`);
+        const markError = input => {
+            input.classList.add('ring-2', 'ring-red-500');
+        };
+        const clearError = input => {
+            input.classList.remove('ring-2', 'ring-red-500');
+        };
+
+        // Reset styles
+        form.querySelectorAll('input, textarea').forEach(clearError);
+
+        // Champs communs
+        const nom = get('nom');
+        const prenom = get('prenom');
+        const email = get('email');
+
+        if (nom && nom.value.trim().length < 2) {
+            errors.push('Le nom doit contenir au moins 2 caractères.');
+            markError(nom);
+        }
+
+        if (prenom && prenom.value.trim().length < 2) {
+            errors.push('Le prénom doit contenir au moins 2 caractères.');
+            markError(prenom);
+        }
+
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+            errors.push('Adresse email invalide.');
+            markError(email);
+        }
+
+        // Champs Coach uniquement (si présents)
+        const discipline = get('discipline');
+        const experience = get('annees_experience');
+        const description = get('description');
+
+        if (discipline && discipline.value.trim() === '') {
+            errors.push('La discipline est obligatoire.');
+            markError(discipline);
+        }
+
+        if (experience && (experience.value < 0 || experience.value === '')) {
+            errors.push('Les années d’expérience doivent être valides.');
+            markError(experience);
+        }
+
+        if (description && description.value.trim().length < 10) {
+            errors.push('La description doit contenir au moins 10 caractères.');
+            markError(description);
+        }
+
+        // Stop submit si erreurs
+        if (errors.length > 0) {
+            e.preventDefault();
+            alert(errors.join('\n'));
+        }
+    });
+
+});
+
+</script>

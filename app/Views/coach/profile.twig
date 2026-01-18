@@ -21,7 +21,7 @@
                     <p class="text-slate-500">Mettez à jour vos informations pour attirer plus de sportifs.</p>
                 </div>
 
-                <form method="POST" action="{{ base_url }}/coach/profile/update" class="space-y-8">
+                <form id="coach-profile-form" method="POST"  action="{{ base_url }}/coach/profile/update" class="space-y-8">
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-2">
@@ -63,3 +63,4 @@
         </div>
     </div>
 </div>
+<script src="{{ base_url }}/assets/js/validation.js"></script>

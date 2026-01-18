@@ -54,9 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* =======================
-       REGISTER VALIDATION
-    ======================= */
     const registerForm = document.querySelector('form[action$="/register"]');
 
     if (registerForm) {
@@ -132,3 +129,4 @@ document.getElementById('role').addEventListener('change', function () {
         coachFields.classList.add('hidden');
     }
 });
+

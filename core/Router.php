@@ -26,7 +26,7 @@ class Router
     {
         $uri = parse_url($uri, PHP_URL_PATH);
 
-        $basePath = '/CoachPro(MVC)/public';
+        $basePath = '/CoachPro(MVC)/';
         if (str_starts_with($uri, $basePath)) {
             $uri = substr($uri, strlen($basePath));
         }
@@ -40,7 +40,7 @@ class Router
 
             if (preg_match($pattern, $uri, $matches)) {
 
-                array_shift($matches); 
+                array_shift($matches);
 
                 [$controller, $action] = explode('@', $route['action']);
                 $controller = "App\\Controllers\\$controller";
@@ -53,8 +53,10 @@ class Router
             }
         }
 
-        // ❌ 404
         http_response_code(404);
-        echo "404 - Page non trouvée";
+
+        $controller = new \App\Controllers\ErrorController();
+        $controller->notFound();
+        return;
     }
 }

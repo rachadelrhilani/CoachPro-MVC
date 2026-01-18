@@ -34,7 +34,10 @@ class Security
             !isset($_POST['_csrf']) ||
             $_POST['_csrf'] !== Session::get('csrf_token')
         ) {
-            die('CSRF token invalide');
+            Session::flash('error', 'Session expirée, veuillez réessayer.');
+            header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/'));
+            exit;
         }
     }
+
 }
